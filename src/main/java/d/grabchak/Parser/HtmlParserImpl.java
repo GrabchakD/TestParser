@@ -30,10 +30,17 @@ public class HtmlParserImpl implements HtmlParser {
 
         linksToProducts = getProductPagesLinks(absDocument);
 
+        String nextPageLink = getNextPage(absDocument);
+
+        if (nextPageLink != null) {
+            Document next = Jsoup.connect(nextPageLink).get();
+            linksToProducts.add(String.valueOf(getProductPagesLinks(next)));
+        }
+
         for (String link : linksToProducts) {
             Document currentDoc = Jsoup.connect(link).get();
             countOfRequest++;
-            
+
             Product product = new Product();
 
             product.setName(getName(currentDoc));
@@ -64,6 +71,18 @@ public class HtmlParserImpl implements HtmlParser {
     private Document buildUrl(String keyword) throws IOException {
 
         return Jsoup.connect(String.format("http://www.aboutyou.de/suche?term=%s", keyword)).get();
+    }
+
+    private String getNextPage(Document doc) {
+        //styles__buttonLink--BgPaW
+        Element elements = doc.getElementsByClass("styles__paginationWrapper--SrlgQ").first();
+        if (elements == null) {
+            return null;
+        }
+        Element link = elements.select("a.styles__buttonLink--BgPaW").first();
+        String result = link.attr(ABS_HREF_TAG);
+
+        return result;
     }
 
     private String buildUrl2(String url, String ... args) {
@@ -116,7 +135,6 @@ public class HtmlParserImpl implements HtmlParser {
     private String getInitialPrice(Document doc) {
         Element element = doc.getElementsByClass("priceStyles__strike--PSBGK").first();
         String result = element.select(DIV_TAG).text();
-
 
         return result;
     }
