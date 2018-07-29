@@ -74,7 +74,6 @@ public class HtmlParserImpl implements HtmlParser {
     }
 
     private String getNextPage(Document doc) {
-        //styles__buttonLink--BgPaW
         Element elements = doc.getElementsByClass("styles__paginationWrapper--SrlgQ").first();
         if (elements == null) {
             return null;
