@@ -24,18 +24,20 @@ public class HtmlParserImpl implements HtmlParser {
 
         Document doc = buildUrl(keyword);
 
+/*
         String redirectLink = getRedirectLintToPageWithProduct(doc);
+*/
 
-        Document absDocument = Jsoup.connect(redirectLink).get();
+        /*Document absDocument = Jsoup.connect(redirectLink).get();*/
 
-        linksToProducts = getProductPagesLinks(absDocument);
+        linksToProducts = getProductPagesLinks(doc);
 
-        String nextPageLink = getNextPage(absDocument);
+        /*String nextPageLink = getNextPage(absDocument);
 
-        if (nextPageLink != null) {
+        *//*if (nextPageLink != null) {
             Document next = Jsoup.connect(nextPageLink).get();
             linksToProducts.add(String.valueOf(getProductPagesLinks(next)));
-        }
+        }*/
 
         for (String link : linksToProducts) {
             Document currentDoc = Jsoup.connect(link).get();
@@ -79,9 +81,8 @@ public class HtmlParserImpl implements HtmlParser {
             return null;
         }
         Element link = elements.select("a.styles__buttonLink--BgPaW").first();
-        String result = link.attr(ABS_HREF_TAG);
 
-        return result;
+        return link.attr(ABS_HREF_TAG);
     }
 
     private String buildUrl2(String url, String ... args) {
@@ -114,47 +115,75 @@ public class HtmlParserImpl implements HtmlParser {
         Element element = doc.getElementsByClass("styles__titleContainer--33zw2").first();
         String result = element.select(H1_TAG).text();
 
-        return result;
-    }
+        if (result != null) {
+            return result;
+        } else {
+            return "";
+        }    }
 
     private String getColor(Document doc) {
         Element element = doc.getElementsByClass("styles__title--UFKYd").addClass("styles__isHoveredState--2BBt9").first();
         String result = element.select(SPAN_TEXT).text();
 
-        return result;
+        if (result != null) {
+            return result;
+        } else {
+            return "";
+        }
     }
 
     private String getPrice(Document doc) {
         Element element = doc.getElementsByClass("productPrices").first();
         String result = element.select(DIV_TAG).text();
 
-        return result;
+        if (result != null) {
+            return result;
+        } else {
+            return "";
+        }
     }
 
     private String getInitialPrice(Document doc) {
         Element element = doc.getElementsByClass("priceStyles__strike--PSBGK").first();
-        String result = element.select(DIV_TAG).text();
 
-        return result;
+        if (element != null) {
+
+            return element.select(DIV_TAG).text();
+        } else {
+            return "";
+        }
     }
+
     private String getDescription(Document doc) {
         Element element = doc.getElementsByClass("styles__textElement--3QlT_").first();
         String result = element.select(UL_TAG).text();
 
-        return result;
+        if (result != null) {
+            return result;
+        } else {
+            return "";
+        }
     }
 
     private String getArticleId(Document doc) {
         Element element = doc.getElementsByClass("styles__articleNumber--1UszN").first();
         String result = element.select(LI_TAG).text();
 
-        return result;
+        if (result != null) {
+            return result;
+        } else {
+            return "";
+        }
     }
 
     private String getShippingCosts(Document doc) {
         Elements element = doc.getElementsByClass("styles__label--1cfc7").next();
         String result = element.select(SPAN_TEXT).text();
 
-        return result;
+        if (result != null) {
+            return result;
+        } else {
+            return "";
+        }
     }
 }
