@@ -24,20 +24,7 @@ public class HtmlParserImpl implements HtmlParser {
 
         Document doc = buildUrl(keyword);
 
-/*
-        String redirectLink = getRedirectLintToPageWithProduct(doc);
-*/
-
-        /*Document absDocument = Jsoup.connect(redirectLink).get();*/
-
         linksToProducts = getProductPagesLinks(doc);
-
-        /*String nextPageLink = getNextPage(absDocument);
-
-        *//*if (nextPageLink != null) {
-            Document next = Jsoup.connect(nextPageLink).get();
-            linksToProducts.add(String.valueOf(getProductPagesLinks(next)));
-        }*/
 
         for (String link : linksToProducts) {
             Document currentDoc = Jsoup.connect(link).get();
@@ -69,23 +56,12 @@ public class HtmlParserImpl implements HtmlParser {
         return productList;
     }
 
-    //TODO separate Jsoup logic from url builder
     private Document buildUrl(String keyword) throws IOException {
 
         return Jsoup.connect(String.format("http://www.aboutyou.de/suche?term=%s", keyword)).get();
     }
 
-    private String getNextPage(Document doc) {
-        Element elements = doc.getElementsByClass("styles__paginationWrapper--SrlgQ").first();
-        if (elements == null) {
-            return null;
-        }
-        Element link = elements.select("a.styles__buttonLink--BgPaW").first();
-
-        return link.attr(ABS_HREF_TAG);
-    }
-
-    private String buildUrl2(String url, String ... args) {
+    private String buildUrlForProduct(String url, String ... args) {
 
         return String.format(url, args);
     }
@@ -93,7 +69,7 @@ public class HtmlParserImpl implements HtmlParser {
     private List<String> getProductPagesLinks(Document doc) {
         return doc.select(A_TAG).eachAttr(HREF_TAG).stream()
                 .filter(u -> u.startsWith(PRODUCT_INITIALIZER_TAG))
-                .map(u -> buildUrl2(BASE_URL, u))
+                .map(u -> buildUrlForProduct(BASE_URL, u))
                 .collect(Collectors.toList());
     }
 
