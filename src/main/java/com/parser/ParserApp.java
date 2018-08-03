@@ -1,10 +1,10 @@
-package d.grabchak;
+package com.parser;
 
-import d.grabchak.parser.HtmlParser;
-import d.grabchak.parser.HtmlParserImpl;
-import d.grabchak.xmlBuilder.BuildResultXml;
-import d.grabchak.xmlBuilder.BuildResultXmlImpl;
-import d.grabchak.model.Product;
+import com.parser.model.Product;
+import com.parser.parser.HtmlParser;
+import com.parser.xmlBuilder.BuildResultXml;
+import com.parser.xmlBuilder.BuildResultXmlImpl;
+import com.parser.parser.HtmlParserImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;

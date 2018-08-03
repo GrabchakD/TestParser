@@ -1,6 +1,6 @@
-package d.grabchak.xmlBuilder;
+package com.parser.xmlBuilder;
 
-import d.grabchak.model.Product;
+import com.parser.model.Product;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package d.grabchak.parser;
+package com.parser.parser;
 
-import d.grabchak.model.Product;
+import com.parser.model.Product;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static d.grabchak.parser.ParserConstants.*;
 
 public class HtmlParserImpl implements HtmlParser {
     @Override
@@ -66,36 +64,36 @@ public class HtmlParserImpl implements HtmlParser {
     }
 
     private List<String> getProductPagesLinks(Document doc) {
-        return doc.select(A_TAG).eachAttr(HREF_TAG).stream()
-                .filter(u -> u.startsWith(PRODUCT_INITIALIZER_TAG))
-                .map(u -> buildUrlForProduct(BASE_URL_PATTERN, u))
+        return doc.select(ParserConstants.A_TAG).eachAttr(ParserConstants.HREF_TAG).stream()
+                .filter(u -> u.startsWith(ParserConstants.PRODUCT_INITIALIZER_TAG))
+                .map(u -> buildUrlForProduct(ParserConstants.BASE_URL_PATTERN, u))
                 .collect(Collectors.toList());
     }
 
     private String getName(Document doc) {
         Element element = doc.getElementsByClass("styles__titleContainer--33zw2").first();
-        String result = element.select(H1_TAG).text();
+        String result = element.select(ParserConstants.H1_TAG).text();
 
         return result;
     }
 
     private String getBrand(Document doc) {
         Element element = doc.getElementsByClass("styles__titleContainer--33zw2").first();
-        String result = element.select(H1_TAG).text();
+        String result = element.select(ParserConstants.H1_TAG).text();
 
         return result == null ? "" : result;
     }
 
     private String getColor(Document doc) {
         Element element = doc.getElementsByClass("styles__title--UFKYd").addClass("styles__isHoveredState--2BBt9").first();
-        String result = element.select(SPAN_TEXT).text();
+        String result = element.select(ParserConstants.SPAN_TEXT).text();
 
         return result == null ? "" : result;
     }
 
     private String getPrice(Document doc) {
         Element element = doc.getElementsByClass("productPrices").first();
-        String result = element.select(DIV_TAG).text();
+        String result = element.select(ParserConstants.DIV_TAG).text();
 
         return result == null ? "" : result;
     }
@@ -103,26 +101,26 @@ public class HtmlParserImpl implements HtmlParser {
     private String getInitialPrice(Document doc) {
         Element element = doc.getElementsByClass("priceStyles__strike--PSBGK").first();
 
-        return element == null ? "" : element.select(DIV_TAG).text();
+        return element == null ? "" : element.select(ParserConstants.DIV_TAG).text();
     }
 
     private String getDescription(Document doc) {
         Element element = doc.getElementsByClass("styles__textElement--3QlT_").first();
-        String result = element.select(UL_TAG).text();
+        String result = element.select(ParserConstants.UL_TAG).text();
 
         return result == null ? "" : result;
     }
 
     private String getArticleId(Document doc) {
         Element element = doc.getElementsByClass("styles__articleNumber--1UszN").first();
-        String result = element.select(LI_TAG).text();
+        String result = element.select(ParserConstants.LI_TAG).text();
 
         return result == null ? "" : result;
     }
 
     private String getShippingCosts(Document doc) {
         Elements element = doc.getElementsByClass("styles__label--1cfc7").next();
-        String result = element.select(SPAN_TEXT).text();
+        String result = element.select(ParserConstants.SPAN_TEXT).text();
 
         return result == null ? "" : result;
     }

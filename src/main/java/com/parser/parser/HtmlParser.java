@@ -1,6 +1,6 @@
-package d.grabchak.parser;
+package com.parser.parser;
 
-import d.grabchak.model.Product;
+import com.parser.model.Product;
 
 import java.io.IOException;
 import java.util.List;

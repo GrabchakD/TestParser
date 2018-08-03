@@ -1,4 +1,4 @@
-package d.grabchak.parser;
+package com.parser.parser;
 
 public interface ParserConstants {
     public static final String BASE_URL_PATTERN = "http://www.aboutyou.de%s";

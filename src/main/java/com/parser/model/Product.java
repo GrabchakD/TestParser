@@ -1,4 +1,4 @@
-package d.grabchak.model;
+package com.parser.model;
 
 import java.util.List;
 
