@@ -29,8 +29,8 @@ public class ParserApp {
         long totalTime = endTime - startTime;
         long actualMemoryUsed = afterUsedMem - beforeUsedMemory;
 
+        System.out.println(buildResultXml.build(productList));
         System.out.println("Run-time: " + totalTime / 1000 + "sec");
         System.out.println("Memory Footprint: " + actualMemoryUsed / 1048576 + "mb");
-        System.out.println(buildResultXml.build(productList));
     }
 }

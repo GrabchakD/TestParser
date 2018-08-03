@@ -72,13 +72,6 @@ public class HtmlParserImpl implements HtmlParser {
                 .collect(Collectors.toList());
     }
 
-    private String getRedirectLintToPageWithProduct(Document doc) {
-        Elements result = doc.select(LINK_TAG).next();
-        String absHref = result.attr(ABS_HREF_TAG);
-
-        return absHref;
-    }
-
     private String getName(Document doc) {
         Element element = doc.getElementsByClass("styles__titleContainer--33zw2").first();
         String result = element.select(H1_TAG).text();
@@ -109,13 +102,6 @@ public class HtmlParserImpl implements HtmlParser {
 
     private String getInitialPrice(Document doc) {
         Element element = doc.getElementsByClass("priceStyles__strike--PSBGK").first();
-
-        /*if (element != null) {
-
-            return element.select(DIV_TAG).text();
-        } else {
-            return "";
-        }*/
 
         return element == null ? "" : element.select(DIV_TAG).text();
     }
