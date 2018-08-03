@@ -1,4 +1,4 @@
-package d.grabchak.XmlBuilder;
+package d.grabchak.xmlBuilder;
 
 import d.grabchak.model.Product;
 

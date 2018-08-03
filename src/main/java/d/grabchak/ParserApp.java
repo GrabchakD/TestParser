@@ -1,7 +1,9 @@
 package d.grabchak;
 
-import d.grabchak.Parser.HtmlParserImpl;
-import d.grabchak.XmlBuilder.BuildResultXmlImpl;
+import d.grabchak.parser.HtmlParser;
+import d.grabchak.parser.HtmlParserImpl;
+import d.grabchak.xmlBuilder.BuildResultXml;
+import d.grabchak.xmlBuilder.BuildResultXmlImpl;
 import d.grabchak.model.Product;
 
 import java.io.BufferedReader;
@@ -9,28 +11,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-public class RunApp {
-
+public class ParserApp {
     public static void main(String[] args) throws IOException {
+        BuildResultXml buildResultXml = new BuildResultXmlImpl();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String input = reader.readLine();
 
-        long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        long beforeUsedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         long startTime = System.currentTimeMillis();
 
-        HtmlParserImpl parser = new HtmlParserImpl();
+        HtmlParser parser = new HtmlParserImpl();
         List<Product> productList = parser.parser(input);
 
         long endTime = System.currentTimeMillis();
         long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
         long totalTime = endTime - startTime;
-        long actualMemUsed = afterUsedMem - beforeUsedMem;
+        long actualMemoryUsed = afterUsedMem - beforeUsedMemory;
 
         System.out.println("Run-time: " + totalTime / 1000 + "sec");
-        System.out.println("Memory Footprint: " + actualMemUsed / 1048576 + "mb");
-
-        BuildResultXmlImpl buildResultXml = new BuildResultXmlImpl();
-        buildResultXml.build(productList);
+        System.out.println("Memory Footprint: " + actualMemoryUsed / 1048576 + "mb");
+        System.out.println(buildResultXml.build(productList));
     }
 }

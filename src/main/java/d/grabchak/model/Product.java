@@ -3,7 +3,6 @@ package d.grabchak.model;
 import java.util.List;
 
 public class Product {
-
     private String name;
     private String brand;
     private String color;

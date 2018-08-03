@@ -36,7 +36,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.d.grabchak.RunApp</mainClass>
+                            <mainClass>com.d.grabchak.ParserApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
